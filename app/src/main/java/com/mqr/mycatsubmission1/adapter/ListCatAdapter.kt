@@ -1,4 +1,4 @@
-package com.mqr.mycatsubmission1
+package com.mqr.mycatsubmission1.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mqr.mycatsubmission1.model.Cat
+import com.mqr.mycatsubmission1.R
 
 class ListCatAdapter(val listCat: ArrayList<Cat>) : RecyclerView.Adapter<ListCatAdapter.ListViewHolder>(){
 
@@ -34,8 +36,8 @@ class ListCatAdapter(val listCat: ArrayList<Cat>) : RecyclerView.Adapter<ListCat
             .load(cat.image)
             .apply(RequestOptions().override(55, 55))
             .into(holder.image)
-        holder.idCat.text = cat.id
-        holder.CreatedCat.text = cat.created_at
+        holder.idCat.text = cat.catName
+        holder.CreatedCat.text = cat.description
 
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listCat[holder.adapterPosition]) }
     }

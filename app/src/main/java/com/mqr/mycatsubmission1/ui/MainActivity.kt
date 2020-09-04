@@ -1,4 +1,4 @@
-package com.mqr.mycatsubmission1
+package com.mqr.mycatsubmission1.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mqr.mycatsubmission1.R
+import com.mqr.mycatsubmission1.adapter.ListCatAdapter
+import com.mqr.mycatsubmission1.data.CatData
+import com.mqr.mycatsubmission1.model.Cat
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,9 +1,10 @@
-package com.mqr.mycatsubmission1
+package com.mqr.mycatsubmission1.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.mqr.mycatsubmission1.R
 
 class SplashActivity : AppCompatActivity() {
 
