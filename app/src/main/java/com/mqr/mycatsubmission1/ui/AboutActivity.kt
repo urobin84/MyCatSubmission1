@@ -13,7 +13,8 @@ class AboutActivity : AppCompatActivity() {
 
         //actionbar
         val actionbar = supportActionBar
-        supportActionBar?.title = "About"
+        //set Title
+        actionbar?.title = "About"
         //set back button
         actionbar?.setDisplayHomeAsUpEnabled(true)
 

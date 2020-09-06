@@ -66,4 +66,6 @@ class MainActivity : AppCompatActivity() {
     private fun showSelectedCat(cat: Cat) {
         Toast.makeText(this, "Kamu memilih " + cat.id, Toast.LENGTH_SHORT).show()
     }
+
+
 }
