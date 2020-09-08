@@ -45,13 +45,12 @@ class DetailActivity : AppCompatActivity() {
         //set Description
         description_cat.setText(model.description.toString())
 
-
     }
 
     private fun setImage(img: Int, image: ImageView) {
         Glide.with(this)
             .load(img)
-//            .apply(RequestOptions().override(55, 55))
+            .apply(RequestOptions().override(400, 300))
             .into(image)
     }
 
