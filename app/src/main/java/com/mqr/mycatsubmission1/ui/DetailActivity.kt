@@ -30,18 +30,6 @@ class DetailActivity : AppCompatActivity() {
         //set Main Image
         setImage(model.image, main_image)
 
-        //set Karakter Image body
-        setImage(R.drawable.bodycat, icon_bodycat)
-
-        //set Karakter Image body
-        setImage(R.drawable.coralcat, icon_coral)
-
-        //set Karakter Image foot
-        setImage(R.drawable.footcat, icon_footcat)
-
-        //set Karakter Image balance
-        setImage(R.drawable.catbalace, icon_catbalance)
-
         //set Description
         description_cat.setText(model.description.toString())
 

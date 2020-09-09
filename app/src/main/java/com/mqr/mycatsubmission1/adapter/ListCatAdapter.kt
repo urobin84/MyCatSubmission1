@@ -47,7 +47,7 @@ class ListCatAdapter(val listCat: ArrayList<Cat>) : RecyclerView.Adapter<ListCat
 
         Glide.with(holder.itemView.context)
             .load(cat.image)
-            .apply(RequestOptions().override(55, 55))
+            .apply(RequestOptions().override(78, 78))
             .into(holder.image)
         holder.idCat.text = cat.catName
         holder.CreatedCat.text = cat.description
