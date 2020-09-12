@@ -26,7 +26,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/asap</item>
         <item name="android:textSize">16sp</item>
     </style>
 
@@ -34,7 +34,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:fontFamily">@font/asap</item>
         <item name="android:textSize">18sp</item>
     </style>
 
@@ -42,7 +42,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:fontFamily">@font/asap</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">24dp</item>
     </style>
@@ -51,7 +51,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/asap</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -60,7 +60,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">@font/roboto_bold</item>
+        <item name="android:fontFamily">@font/asap</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textColor">@color/black</item>
     </style>
