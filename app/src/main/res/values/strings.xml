@@ -5,9 +5,10 @@
     <string name="urobin84_gmail_com">urobin84@gmail.com</string>
     <string name="muhammad_muqorrobin">Muhammad Muqorrobin</string>
     <string name="robin">( Robin )</string>
-    <string name="about">About</string>
     <string name="mqr_v_01">MQR V-01</string>
     <string name="search">Search</string>
     <string name="karakter">Karakter</string>
     <string name="cari_kucing">Cari Kucing</string>
+    <string name="kucing_ras">Kucing Ras</string>
+    <string name="about">About</string>
 </resources>
