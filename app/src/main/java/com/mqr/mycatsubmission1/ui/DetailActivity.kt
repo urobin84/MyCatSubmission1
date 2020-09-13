@@ -1,14 +1,26 @@
 package com.mqr.mycatsubmission1.ui
 
-import android.annotation.SuppressLint
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog.*
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.mqr.mycatsubmission1.R
@@ -18,7 +30,9 @@ import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
 
-    var imgShare = ""
+    val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
+
+    var imgShare = 0
     var txtShare = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,11 +48,8 @@ class DetailActivity : AppCompatActivity() {
         //recive cat serialize
         val model: Cat = intent.getSerializableExtra("detail") as Cat
 
-        //get nama file from id drawable
-        val namaFile = getNamaFileFromDrawable(model.image)
-
-        imgShare = namaFile
-        txtShare = model.catName
+        imgShare = model.image.toInt()
+        txtShare = model.catName.toString()
 
         //set Cat Name
         cat_name.setText(model.catName.toString())
@@ -55,30 +66,37 @@ class DetailActivity : AppCompatActivity() {
         })
 
         btn_share.setOnClickListener(View.OnClickListener {
-            shareToWhatsApps(imgShare, txtShare)
+
+            shareToWhatsApps(model.image, txtShare)
+
         })
 
     }
 
-    private fun getNamaFileFromDrawable(idResource: Int): String {
-        val value = TypedValue()
-        resources.getValue(idResource, value, true)
-        val st = value.string.toString().split("/").toTypedArray()
-        val n =  st[2].toString().split(".")
-        return n[0].toString()
+    private fun shareToWhatsApps(imgDrawable: Int, txtShare: String) {
+        var imageUri: Uri? = null
+        try {
+            imageUri = Uri.parse(
+                MediaStore.Images.Media.insertImage(
+                    contentResolver,
+                    BitmapFactory.decodeResource(resources, imgDrawable), null, null
+                )
+            )
+        } catch (e: NullPointerException) {
+            Log.d("PATH DRAWABLE TEST MQR = ", e.toString())
+            Toast.makeText(this, "Gambar tidak bisa di share", Toast.LENGTH_SHORT).show()
+        }
+        val whatsappIntent = Intent(Intent.ACTION_SEND)
+        whatsappIntent.type = "/"
+        whatsappIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
+        whatsappIntent.putExtra(Intent.EXTRA_TEXT, txtShare)
+        whatsappIntent.setPackage("com.whatsapp")
 
-    }
-
-    private fun shareToWhatsApps(imgShare: String, txtShare: String) {
-        val uriImage = Uri.parse("android.resource://"+ this.packageName + "/drawable/$imgShare") as Uri
-        val i = Intent()
-        i.setAction(Intent.ACTION_SEND)
-        i.setType("image/*")
-        i.putExtra(Intent.EXTRA_STREAM, uriImage)
-        i.putExtra(Intent.EXTRA_TEXT, txtShare)
-        val chooser = Intent.createChooser(i, "Kirim Gambar")
-        startActivity(chooser)
-        i.setPackage("com.whatsapp")
+        try {
+            startActivity(whatsappIntent)
+        } catch (ex: ActivityNotFoundException) {
+            Toast.makeText(this, "Whatsapp belum di-install.", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
@@ -92,5 +110,62 @@ class DetailActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    fun checkPermissionREAD_EXTERNAL_STORAGE(
+        context: Context?
+    ): Boolean {
+        val currentAPIVersion = Build.VERSION.SDK_INT
+        return if (currentAPIVersion >= Build.VERSION_CODES.M) {
+            if (context?.let {
+                    ContextCompat.checkSelfPermission(
+                        it,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                } != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (context as Activity?)!!,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                ) {
+                    showDialog(
+                        "External storage", context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
+                } else {
+                    ActivityCompat
+                        .requestPermissions(
+                            (context as Activity?)!!,
+                            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                            MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                        )
+                }
+                false
+            } else {
+                true
+            }
+        } else {
+            true
+        }
+    }
+
+    private fun showDialog(
+        msg: String, context: Context?,
+        permission: String
+    ) {
+        val alertBuilder = Builder(context)
+        alertBuilder.setCancelable(true)
+        alertBuilder.setTitle("Permission necessary")
+        alertBuilder.setMessage("$msg permission is necessary")
+        alertBuilder.setPositiveButton(android.R.string.yes,
+            DialogInterface.OnClickListener { dialog, _ ->
+                ActivityCompat.requestPermissions(
+                    (context as Activity?)!!, arrayOf(permission),
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE
+                )
+            })
+        val alert: android.app.AlertDialog? = alertBuilder.create()
+        alert?.show()
     }
 }
